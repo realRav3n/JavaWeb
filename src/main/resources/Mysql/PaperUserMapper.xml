@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.backend.Mapper.PaperUserMapper">
+
+    <select id="findAllRecord" resultType="edu.backend.Entity.PaperUser">
+        SELECT * FROM paper_user
+    </select>
+    <insert id="insertRecord">
+        insert into paper_user(author_id,paper_id) VALUES (#{author_id}, #{paper_id})
+    </insert>
+
+
+</mapper>

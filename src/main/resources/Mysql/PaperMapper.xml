@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.backend.Mapper.PaperMapper">
+
+    <!-- 新增文章 -->
+    <insert id="addPaper" parameterType="edu.backend.Entity.Paper" useGeneratedKeys="true" keyProperty="paper_id">
+        INSERT INTO paper( title, text) VALUES (#{title}, #{text})
+    </insert>
+
+    <!-- 删除文章 -->
+    <delete id="deletePaper" parameterType="int">
+        DELETE FROM paper WHERE paper_id = #{paperId}
+    </delete>
+
+    <!-- 修改文章 -->
+    <update id="alterPaper" parameterType="edu.backend.Entity.Paper">
+        UPDATE paper SET title = #{title}, text = #{text} WHERE paper_id = #{paperId}
+    </update>
+
+    <!-- 查询所有文章 -->
+    <select id="findAllPapers" resultType="edu.backend.Entity.Paper">
+        SELECT paper_id, title, text FROM paper
+    </select>
+
+    <!-- 根据文章名查询文章 -->
+    <select id="findPaperByPaperName" parameterType="String" resultType="edu.backend.Entity.Paper">
+        SELECT paper_id, title, text FROM paper WHERE title LIKE CONCAT('%', #{paperName}, '%')
+    </select>
+
+    <!-- 根据作者名查询文章 -->
+    <select id="findPaperByUserName" parameterType="String" resultType="edu.backend.Entity.Paper">
+        SELECT p.paper_id, p.title, p.text
+        FROM paper p, user a, paper_user pa
+        WHERE p.paper_id = pa.paper_id AND a.user_id = pa.author_id AND a.username LIKE CONCAT('%', #{userName}, '%')
+    </select>
+
+</mapper>
